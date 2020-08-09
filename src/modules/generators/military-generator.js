@@ -139,16 +139,18 @@
       if (!nodes.length) return [];
       nodes.sort((a,b) => a.a - b.a); // form regiments in cells with most troops
       const tree = d3.quadtree(nodes, d => d.x, d => d.y);
+      
       nodes.forEach(n => {
         tree.remove(n);
         const overlap = tree.find(n.x, n.y, 20);
         if (overlap && overlap.t && mergeable(n, overlap)) {merge(n, overlap); return;}
         if (n.t > expected) return;
         const r = (expected - n.t) / (n.s?40:20); // search radius
-        const candidates = tree.findAll(n.x, n.y, r);
-        for (const c of candidates) {
-          if (c.t < expected && mergeable(n, c)) {merge(n, c); break;}
-        }
+        // @todo - ???
+        // const candidates = tree.findAll(n.x, n.y, r);
+        // for (const c of candidates) {
+        //   if (c.t < expected && mergeable(n, c)) {merge(n, c); break;}
+        // }
       });
 
       // add n0 to n1's ultimate parent

@@ -2,7 +2,7 @@
 // lineclip by mourner, https://github.com/mapbox/lineclip
 // Cohen-Sutherland line clippign algorithm, adapted to efficiently
 // handle polylines rather than just segments
-function lineclip(points, bbox, result) {
+export function lineclip(points, bbox, result) {
     var len = points.length,
         codeA = bitCode(points[0], bbox),
         part = [],
@@ -48,7 +48,7 @@ function lineclip(points, bbox, result) {
 }
 
 // Sutherland-Hodgeman polygon clipping algorithm
-function polygonclip(points, bbox, secure = 0) {
+export function polygonclip(points, bbox, secure = 0) {
     var result, edge, prev, prevInside, inter, i, p, inside;
 
     // clip against each side of the clip rectangle
@@ -78,7 +78,7 @@ function polygonclip(points, bbox, secure = 0) {
 }
 
 // intersect a segment against one of the 4 lines that make up the bbox
-function intersect(a, b, edge, bbox) {
+export function intersect(a, b, edge, bbox) {
     return edge & 8 ? [a[0] + (b[0] - a[0]) * (bbox[3] - a[1]) / (b[1] - a[1]), bbox[3]] : // top
         edge & 4 ? [a[0] + (b[0] - a[0]) * (bbox[1] - a[1]) / (b[1] - a[1]), bbox[1]] : // bottom
         edge & 2 ? [bbox[2], a[1] + (b[1] - a[1]) * (bbox[2] - a[0]) / (b[0] - a[0])] : // right
@@ -90,7 +90,7 @@ function intersect(a, b, edge, bbox) {
 //    top  1001  1000  1010
 //    mid  0001  0000  0010
 // bottom  0101  0100  0110
-function bitCode(p, bbox) {
+export function bitCode(p, bbox) {
     var code = 0;
 
     if (p[0] < bbox[0]) code |= 1; // left

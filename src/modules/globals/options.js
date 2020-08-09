@@ -1,9 +1,4 @@
-// UI module to control the options (preferences)
-"use strict";
 
-$("#optionsContainer").draggable({handle: ".drag-trigger", snap: "svg", snapMode: "both"});
-$("#exitCustomization").draggable({handle: "div"});
-$("#mapLayers").disableSelection();
 
 // remove glow if tip is aknowledged
 if (localStorage.getItem("disable_click_arrow_tooltip")) {
@@ -667,3 +662,93 @@ function toggle3dOptions() {
     ThreeD.setResolution(this.value);
   }
 }
+
+Object.assign(window, {
+  applyMapSize,
+  applyStoredOptions,
+  changeBurgsNumberSlider,
+  changeCellsDensity,
+  changeCultureSet,
+  changeDialogsTransparency,
+  changeEra,
+  changeMapSize,
+  changeStatesNumber,
+  changeTooltipSize,
+  changeUIsize,
+  changeViewMode,
+  changeYear,
+  changeZoomExtent,
+  copyMapURL,
+  enter3dView,
+  enterStandardView,
+  generateEra,
+  generateMapWithSeed,
+  hideOptions,
+  loadURL,
+  mapSizeInputChange,
+  randomizeCultureSet,
+  randomizeHeightmapTemplate,
+  randomizeOptions,
+  regenerateEra,
+  regeneratePrompt,
+  resize3d,
+  restoreDefaultOptions,
+  restoreDefaultZoomExtent,
+  restoreSeed,
+  saveGeoJSON,
+  showLoadPane,
+  showSavePane,
+  showOptions,
+  showSeedHistoryDialog,
+  showSupporters,
+  toggle3dOptions,
+  toggleFullscreen,
+  toggleOptions,
+  toggleTranslateExtent,
+  optionsContent
+});
+
+export {
+  applyMapSize,
+  applyStoredOptions,
+  changeBurgsNumberSlider,
+  changeCellsDensity,
+  changeCultureSet,
+  changeDialogsTransparency,
+  changeEra,
+  changeMapSize,
+  changeStatesNumber,
+  changeTooltipSize,
+  changeUIsize,
+  changeViewMode,
+  changeYear,
+  changeZoomExtent,
+  copyMapURL,
+  enter3dView,
+  enterStandardView,
+  generateEra,
+  generateMapWithSeed,
+  hideOptions,
+  loadURL,
+  mapSizeInputChange,
+  randomizeCultureSet,
+  randomizeHeightmapTemplate,
+  randomizeOptions,
+  regenerateEra,
+  regeneratePrompt,
+  resize3d,
+  restoreDefaultOptions,
+  restoreDefaultZoomExtent,
+  restoreSeed,
+  saveGeoJSON,
+  showLoadPane,
+  showSavePane,
+  showOptions,
+  showSeedHistoryDialog,
+  showSupporters,
+  toggle3dOptions,
+  toggleFullscreen,
+  toggleOptions,
+  toggleTranslateExtent,
+  optionsContent,
+};

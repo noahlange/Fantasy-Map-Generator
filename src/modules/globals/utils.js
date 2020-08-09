@@ -285,7 +285,7 @@ function parseTransform(string) {
 }
 
 // findAll d3.quandtree search from https://bl.ocks.org/lwthatcher/b41479725e0ff2277c7ac90df2de2b5e
-void function addFindAll() {
+function addFindAll() {
   const Quad = function(node, x0, y0, x1, y1) {
     this.node = node;
     this.x0 = x0;
@@ -356,7 +356,7 @@ void function addFindAll() {
       do {t.result.push(t.node.data); t.node.data.selected = true;} while (t.node = t.node.next);
     }
   }
-}()
+}
 
 // normalization function
 function normalize(val, min, max) {
@@ -629,3 +629,121 @@ void function() {
 
 // indexedDB; ldb object
 !function(){function e(t,o){return n?void(n.transaction("s").objectStore("s").get(t).onsuccess=function(e){var t=e.target.result&&e.target.result.v||null;o(t)}):void setTimeout(function(){e(t,o)},100)}var t=window.indexedDB||window.mozIndexedDB||window.webkitIndexedDB||window.msIndexedDB;if(!t)return void console.error("indexedDB not supported");var n,o={k:"",v:""},r=t.open("d2",1);r.onsuccess=function(e){n=this.result},r.onerror=function(e){console.error("indexedDB request error"),console.log(e)},r.onupgradeneeded=function(e){n=null;var t=e.target.result.createObjectStore("s",{keyPath:"k"});t.transaction.oncomplete=function(e){n=e.target.db}},window.ldb={get:e,set:function(e,t){o.k=e,o.v=t,n.transaction("s","readwrite").objectStore("s").put(o)}}}();
+
+Object.assign(window, {
+  addFindAll,
+  biased,
+  capitalize,
+  clipPoly,
+  common,
+  convertTemperature,
+  debounce,
+  drawCellsValue,
+  drawPolygons,
+  find,
+  findAll,
+  findCell,
+  findGridAll,
+  findGridCell,
+  gauss,
+  generateDate,
+  getAbsolutePath,
+  getAdjective,
+  getBoundaryPoints,
+  getColors,
+  getComposedPath,
+  getDefaultTexture,
+  getInteger,
+  getJitteredGrid,
+  getMixedColor,
+  getNextId,
+  getNumberInRange,
+  getPackPolygon,
+  getRandomColor,
+  isCtrlClick,
+  isLand,
+  isWater,
+  last,
+  lim,
+  link,
+  normalize,
+  openURL,
+  P,
+  parseError,
+  parseTransform,
+  Pint,
+  poissonDiscSampler,
+  ra,
+  rand,
+  removeParent,
+  rn,
+  round,
+  rw,
+  si,
+  sleep,
+  splitInTwo,
+  toHEX,
+  trimVowels,
+  vowel,
+  wiki,
+  nth
+})
+
+export {
+  addFindAll,
+  biased,
+  capitalize,
+  clipPoly,
+  common,
+  convertTemperature,
+  debounce,
+  drawCellsValue,
+  drawPolygons,
+  find,
+  findAll,
+  findCell,
+  findGridAll,
+  findGridCell,
+  gauss,
+  generateDate,
+  getAbsolutePath,
+  getAdjective,
+  getBoundaryPoints,
+  getColors,
+  getComposedPath,
+  getDefaultTexture,
+  getInteger,
+  getJitteredGrid,
+  getMixedColor,
+  getNextId,
+  getNumberInRange,
+  getPackPolygon,
+  getRandomColor,
+  isCtrlClick,
+  isLand,
+  isWater,
+  last,
+  lim,
+  link,
+  normalize,
+  openURL,
+  P,
+  parseError,
+  parseTransform,
+  Pint,
+  poissonDiscSampler,
+  ra,
+  rand,
+  removeParent,
+  rn,
+  round,
+  rw,
+  si,
+  sleep,
+  splitInTwo,
+  toHEX,
+  trimVowels,
+  vowel,
+  wiki,
+  nth
+}
