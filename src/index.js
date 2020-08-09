@@ -10,7 +10,6 @@ import "./modules/globals";
 
 import "./libs/jquery-ui.min.js";
 import "./libs/jquery.ui.touch-punch.min.js";
-import "./libs/three.min.js";
 
 import "./modules/globals/layers.js";
 import "./modules/globals/utils";
@@ -20,6 +19,7 @@ import "./modules/globals/style";
 import "./modules/globals/options";
 import "./modules/globals/events";
 import "./modules/globals/zoom";
+import "./modules/globals/save-and-load.js";
 import "./modules/globals/measurers.js";
 
 import PriorityQueue from "./libs/priority-queue.min.js";
@@ -29,10 +29,10 @@ import polylabel from "./libs/polylabel.min.js";
 import { bitCode, intersect, lineclip, polygonclip } from "./libs/lineclip.js";
 
 import "./libs/seedrandom.min.js";
+import "./libs/three.min.js";
 import "./libs/rgbquant.js";
 import "./libs/pell.js";
 
-import "./modules/save-and-load.js";
 import "./modules/generators";
 import "./modules/ui";
 
@@ -111,8 +111,20 @@ population.append("g").attr("id", "rural");
 population.append("g").attr("id", "urban");
 
 // fogging
-fogging.append("rect").attr("x", 0).attr("y", 0).attr("width", "100%").attr("height", "100%");
-fogging.append("rect").attr("x", 0).attr("y", 0).attr("width", "100%").attr("height", "100%").attr("fill", "#e8f0f6").attr("filter", "url(#splotch)");
+fogging
+  .append("rect")
+  .attr("x", 0)
+  .attr("y", 0)
+  .attr("width", "100%")
+  .attr("height", "100%");
+fogging
+  .append("rect")
+  .attr("x", 0)
+  .attr("y", 0)
+  .attr("width", "100%")
+  .attr("height", "100%")
+  .attr("fill", "#e8f0f6")
+  .attr("filter", "url(#splotch)");
 
 // assign events separately as not a viewbox child
 scaleBar.on("mousemove", () => tip("Click to open Units Editor"));
@@ -428,11 +440,146 @@ function applyDefaultBiomesSystem() {
   const cost = [10, 200, 150, 60, 50, 70, 70, 80, 90, 200, 1000, 5000, 150]; // biome movement cost
   const biomesMartix = [
     // hot ↔ cold [>19°C; <-4°C]; dry ↕ wet
-    new Uint8Array([1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 10, ]), 
-    new Uint8Array([3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 9, 9, 9, 10, 10, 10, ]), 
-    new Uint8Array([5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 9, 9, 9, 9, 9, 10, 10, 10, ]), 
-    new Uint8Array([5, 6, 6, 6, 6, 6, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 10, 10, 10, ]), 
-    new Uint8Array([7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 10, 10, ]), 
+    new Uint8Array([
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      10,
+    ]),
+    new Uint8Array([
+      3,
+      3,
+      3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      9,
+      9,
+      9,
+      9,
+      10,
+      10,
+      10,
+    ]),
+    new Uint8Array([
+      5,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      9,
+      9,
+      9,
+      9,
+      9,
+      10,
+      10,
+      10,
+    ]),
+    new Uint8Array([
+      5,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      10,
+      10,
+      10,
+    ]),
+    new Uint8Array([
+      7,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      10,
+      10,
+    ]),
   ];
 
   // parse icons weighted array into a simple array
@@ -447,8 +594,8 @@ function applyDefaultBiomesSystem() {
   }
 
   return {
-    i: d3.range(0,  name.length), 
-    name, 
+    i: d3.range(0, name.length),
+    name,
     color,
     biomesMartix,
     habitability,
